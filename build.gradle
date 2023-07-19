@@ -1,0 +1,14 @@
+plugins {
+  id 'org.jetbrains.kotlin.jvm' version '1.8.10' apply false
+  id 'com.github.ben-manes.versions' version '0.27.0' apply false
+  id 'com.asarkar.gradle.build-time-tracker' version '4.3.0'
+}
+
+allprojects {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+  group = 'com.abcd'
+  version = '0.1.0'
+}

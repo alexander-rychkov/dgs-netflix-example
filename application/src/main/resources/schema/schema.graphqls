@@ -1,0 +1,13 @@
+scalar Long
+
+type Query {
+
+    getSomething(
+        accountId: Long!
+        keyword: String
+    ): Something!
+}
+
+type Something {
+    name: String!
+}

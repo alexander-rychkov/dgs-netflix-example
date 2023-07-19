@@ -1,0 +1,11 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    javax.management.remote.rmi: INFO
+    sun.rmi.loader: INFO
+    sun.rmi.transport.tcp: INFO
+    sun.rmi.server.call: INFO
+
+server:
+  port: 8082

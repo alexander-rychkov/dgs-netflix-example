@@ -1,0 +1,34 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'com.github.ben-manes.versions'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+compileKotlin {
+    compilerOptions {
+        freeCompilerArgs.add('-Xjsr305=strict')
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
+compileTestKotlin {
+    compilerOptions {
+        freeCompilerArgs.add('-Xjsr305=strict')
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.7.1'
+
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,71 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '3.1.1'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.22'
+    id 'com.github.ben-manes.versions'
+    id 'com.netflix.dgs.codegen' version '5.12.4'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+generateJava {
+    schemaPaths = [
+            "${projectDir}/src/main/resources/schema/schema.graphqls",
+    ]
+    packageName = 'com.abcd.application.graphql'
+    generateClientv2 = true
+    language = "kotlin"
+    typeMapping = [
+            'JSON': 'Map<String, String>',
+    ]
+}
+
+compileKotlin {
+    compilerOptions {
+        freeCompilerArgs.add('-Xjsr305=strict')
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
+compileTestKotlin {
+    compilerOptions {
+        freeCompilerArgs.add('-Xjsr305=strict')
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation project(':domain')
+
+    implementation(platform('com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release'))
+    implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter'
+    implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars'
+
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'org.springframework.integration:spring-integration-core:6.1.1'
+
+    implementation platform('com.google.cloud:libraries-bom:26.18.0')
+    implementation 'com.google.cloud:google-cloud-storage'
+    implementation 'com.google.cloud:spring-cloud-gcp-starter-pubsub:4.5.1'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
