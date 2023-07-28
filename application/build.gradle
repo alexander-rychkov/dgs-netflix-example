@@ -28,6 +28,7 @@ generateJava {
     language = "kotlin"
     typeMapping = [
             'JSON': 'Map<String, String>',
+            'Long': 'java.lang.Long'
     ]
 }
 

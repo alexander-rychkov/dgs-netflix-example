@@ -9,5 +9,5 @@ type Query {
 }
 
 type Something {
-    name: String!
+    name: Long!
 }
